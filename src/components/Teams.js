@@ -5,6 +5,27 @@ import '../App.css';
 
 const Team = () => {
   const { t } = useTranslation();
+  console.log('Team component rendered'); // デバッグ用ログ
+
+  const leadership = [
+    { name: t('team_ceo_name'), description: t('team_ceo_description') },
+    { name: t('team_cto_name'), description: t('team_cto_description') },
+    { name: t('team_coo_name'), description: t('team_coo_description') },
+  ];
+
+  const materialDomains = [
+    { title: t('team_natural_science_title'), description: t('team_natural_science_description') },
+    { title: t('team_applied_tech_title'), description: t('team_applied_tech_description') },
+    { title: t('team_social_science_title'), description: t('team_social_science_description') },
+    { title: t('team_humanities_title'), description: t('team_humanities_description') },
+  ];
+
+  const nonMaterialDomains = [
+    { title: t('team_spiritual_research_title'), description: t('team_spiritual_research_description') },
+    { title: t('team_creative_title'), description: t('team_creative_description') },
+    { title: t('team_emotional_relationships_title'), description: t('team_emotional_relationships_description') },
+    { title: t('team_reality_interference_title'), description: t('team_reality_interference_description') },
+  ];
 
   return (
     <section id="team" className="team-section">
@@ -14,18 +35,12 @@ const Team = () => {
           <div className="team-subsection">
             <h3>{t('team_leadership_title')}</h3>
             <div className="team-members">
-              <div className="team-member">
-                <h4>{t('team_ceo_name')}</h4>
-                <p>{t('team_ceo_description')}</p>
-              </div>
-              <div className="team-member">
-                <h4>{t('team_cto_name')}</h4>
-                <p>{t('team_cto_description')}</p>
-              </div>
-              <div className="team-member">
-                <h4>{t('team_coo_name')}</h4>
-                <p>{t('team_coo_description')}</p>
-              </div>
+              {leadership.map((member, index) => (
+                <div key={index} className="team-member">
+                  <h4>{member.name}</h4>
+                  <p>{member.description}</p>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -35,41 +50,21 @@ const Team = () => {
             <div className="team-departments">
               <div className="department-group">
                 <h4>{t('team_material_domains_title')}</h4>
-                <div className="department">
-                  <h5>{t('team_natural_science_title')}</h5>
-                  <p>{t('team_natural_science_description')}</p>
-                </div>
-                <div className="department">
-                  <h5>{t('team_applied_tech_title')}</h5>
-                  <p>{t('team_applied_tech_description')}</p>
-                </div>
-                <div className="department">
-                  <h5>{t('team_social_science_title')}</h5>
-                  <p>{t('team_social_science_description')}</p>
-                </div>
-                <div className="department">
-                  <h5>{t('team_humanities_title')}</h5>
-                  <p>{t('team_humanities_description')}</p>
-                </div>
+                {materialDomains.map((dept, index) => (
+                  <div key={index} className="department">
+                    <h5>{dept.title}</h5>
+                    <p>{dept.description}</p>
+                  </div>
+                ))}
               </div>
               <div className="department-group">
                 <h4>{t('team_non_material_domains_title')}</h4>
-                <div className="department">
-                  <h5>{t('team_spiritual_research_title')}</h5>
-                  <p>{t('team_spiritual_research_description')}</p>
-                </div>
-                <div className="department">
-                  <h5>{t('team_creative_title')}</h5>
-                  <p>{t('team_creative_description')}</p>
-                </div>
-                <div className="department">
-                  <h5>{t('team_emotional_relationships_title')}</h5>
-                  <p>{t('team_emotional_relationships_description')}</p>
-                </div>
-                <div className="department">
-                  <h5>{t('team_reality_interference_title')}</h5>
-                  <p>{t('team_reality_interference_description')}</p>
-                </div>
+                {nonMaterialDomains.map((dept, index) => (
+                  <div key={index} className="department">
+                    <h5>{dept.title}</h5>
+                    <p>{dept.description}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -84,4 +79,4 @@ const Team = () => {
   );
 };
 
-export default Team;
+export default React.memo(Team); // パフォーマンス最適化
