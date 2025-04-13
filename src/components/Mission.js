@@ -5,34 +5,39 @@ import '../App.css';
 
 const Mission = () => {
   const { t } = useTranslation();
+  console.log('Mission component rendered'); // デバッグ用ログ
+
+  const sections = [
+    { title: t('mission_intro_title'), content: t('mission_intro') },
+    { title: t('mission_ai_difference_title'), content: t('mission_ai_difference') },
+    {
+      title: t('mission_rem_system_title'),
+      content: (
+        <>
+          {t('mission_rem_system_part1')}{' '}
+          <span className="highlight">{t('mission_rem_system_highlight')}</span>{' '}
+          {t('mission_rem_system_part2')}
+        </>
+      ),
+    },
+    { title: t('mission_goal_title'), content: t('mission_goal') },
+  ];
 
   return (
     <section id="mission" className="mission-section">
       <div className="mission-background">
         <h2>{t('mission_title')}</h2>
         <div className="mission-content">
-          <div className="mission-subsection">
-            <h3>{t('mission_intro_title')}</h3>
-            <p>{t('mission_intro')}</p>
-          </div>
-          <div className="mission-subsection">
-            <h3>{t('mission_ai_difference_title')}</h3>
-            <p>{t('mission_ai_difference')}</p>
-          </div>
-          <div className="mission-subsection">
-            <h3>{t('mission_rem_system_title')}</h3>
-            <p>
-              {t('mission_rem_system_part1')} <span className="highlight">{t('mission_rem_system_highlight')}</span> {t('mission_rem_system_part2')}
-            </p>
-          </div>
-          <div className="mission-subsection">
-            <h3>{t('mission_goal_title')}</h3>
-            <p>{t('mission_goal')}</p>
-          </div>
+          {sections.map((section, index) => (
+            <div key={index} className="mission-subsection">
+              <h3>{section.title}</h3>
+              <p>{section.content}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
   );
 };
 
-export default Mission;
+export default React.memo(Mission); // パフォーマンス最適化
