@@ -8,6 +8,7 @@ import '../App.css';
 
 const Home = () => {
   const { t } = useTranslation();
+  console.log('Home component rendered'); // デバッグ用ログ
 
   const settings = {
     dots: true,
@@ -61,19 +62,22 @@ const Home = () => {
       <div className="remsync-diagram">
         <h2>{t('diagram_title')}</h2>
         <div className="cycle-diagram">
-          <div className="step"><p>{t('step_dream')}</p></div>
-          <div className="arrow">→</div>
-          <div className="step"><p>{t('step_emotion')}</p></div>
-          <div className="arrow">→</div>
-          <div className="step"><p>{t('step_consciousness')}</p></div>
-          <div className="arrow">→</div>
-          <div className="step"><p>{t('step_action')}</p></div>
-          <div className="arrow">→</div>
-          <div className="step"><p>{t('step_reality')}</p></div>
+          {[
+            t('step_dream'),
+            t('step_emotion'),
+            t('step_consciousness'),
+            t('step_action'),
+            t('step_reality'),
+          ].map((step, index) => (
+            <React.Fragment key={index}>
+              <div className="step"><p>{step}</p></div>
+              {index < 4 && <div className="arrow">→</div>}
+            </React.Fragment>
+          ))}
         </div>
       </div>
     </section>
   );
 };
 
-export default Home;
+export default React.memo(Home); // パフォーマンス最適化
