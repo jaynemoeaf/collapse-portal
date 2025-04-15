@@ -1,31 +1,19 @@
-// src/i18n.js
-import i18next from 'i18next';
+import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
-import translationJA from '../public/locales/ja/translation.json';
-import translationEN from '../public/locales/en/translation.json';
-import translationZH from '../public/locales/zh/translation.json';
-import translationLA from '../public/locales/la/translation.json';
+import HttpBackend from 'i18next-http-backend';
 
-// i18nextの初期化
-i18next
-  .use(LanguageDetector)
+i18n
+  .use(HttpBackend)
   .use(initReactI18next)
   .init({
-    resources: {
-      ja: { translation: translationJA },
-      en: { translation: translationEN },
-      zh: { translation: translationZH },
-      la: { translation: translationLA },
-    },
-    fallbackLng: 'ja',
-    detection: {
-      order: ['localStorage', 'navigator'],
-      caches: ['localStorage'],
-    },
+    lng: 'ja',
+    fallbackLng: 'en',
     interpolation: {
       escapeValue: false,
     },
+    backend: {
+      loadPath: '/locales/{{lng}}/translation.json',
+    }
   });
 
-export default i18next;
+export default i18n;
